@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfriNex Group — Building Digital Solutions for Growing Businesses</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+      --ink:#0f0f0e;--ink-2:#3d3d3b;--ink-3:#787872;--ink-4:#b0b0a8;
+      --paper:#fafaf8;--paper-2:#f2f2ee;--paper-3:#e8e8e2;
+      --accent:#1a5c3a;--accent-light:#eaf3de;--accent-mid:#3b6d11;
+      --accent-2:#c8a84b;
+      --r-sm:6px;--r-md:12px;--r-lg:20px;
+      --nav-h:68px;
+      --serif:'Syne',sans-serif;--body:'DM Sans',sans-serif;
+      --max:1120px;--t:0.22s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* Background image helpers */
+    .has-bg{position:relative;isolation:isolate}
+    .has-bg::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background-image:var(--bg);
+      background-size:cover;
+      background-position:center;
+      z-index:10;
+      opacity:.25;
+    }
+    .has-bg::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:linear-gradient(180deg,rgba(250,250,248,.72) 0%, rgba(250,250,248,.84) 55%, rgba(250,250,248,1) 100%);
+    }
+    html[data-theme="dark"] .has-bg::after{
+      background:linear-gradient(180deg,rgba(15,18,17,.72) 0%, rgba(20,25,24,.82) 55%, rgba(15,18,17,1) 100%);
+    }
+
+    /* Dark mode (toggle via data-theme="dark" on html) */
+    html[data-theme="dark"]{
+      --ink:#f3f4f4;--ink-2:#c8cacc;--ink-3:#9aa09d;--ink-4:#6f7874;
+      --paper:#0f1211;--paper-2:#141918;--paper-3:#1b2120;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased}
+    h1,h2,h3,h4{font-family:var(--serif);line-height:1.15}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:rgba(250,250,248,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--paper-3);display:flex;align-items:center}
+    .nav-inner{max-width:var(--max);width:100%;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-family:var(--serif);font-weight:800;font-size:1.25rem;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+.logo span{background:linear-gradient(135deg,#1a5c3a 0%, #3b6d11 35%, #c8a84b 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .nav-links{display:flex;align-items:center;gap:.25rem;list-style:none}
+    .nav-links a{display:block;padding:.45rem .9rem;font-size:.9rem;font-weight:400;color:var(--ink-2);text-decoration:none;border-radius:var(--r-sm);transition:background var(--t),color var(--t)}
+    .nav-links a:hover{background:var(--paper-2);color:var(--ink)}
+    .nav-links a.active{color:var(--accent);font-weight:500}
+    .nav-cta{padding:.5rem 1.25rem!important;background:var(--accent)!important;color:#fff!important;font-weight:500!important;border-radius:var(--r-sm)!important}
+    .nav-cta:hover{background:var(--accent-mid)!important}
+    .hamburger{display:none;background:none;border:none;cursor:pointer;padding:.25rem;flex-direction:column;gap:5px}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+
+    /* PAGES */
+    .page{display:none}.page.active{display:block}
+
+    /* SHARED */
+    section{padding:5rem 2rem}
+    .container{max-width:var(--max);margin:0 auto}
+    .section-tag{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:.3rem .75rem;border-radius:100px;margin-bottom:1.25rem}
+    .section-tag::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;font-family:var(--body);font-size:.95rem;font-weight:500;border-radius:var(--r-sm);cursor:pointer;text-decoration:none;border:1.5px solid transparent;transition:var(--t)}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-primary:hover{background:var(--accent-mid)}
+    .btn-outline{border-color:var(--paper-3);color:var(--ink-2);background:transparent}
+    .btn-outline:hover{border-color:var(--ink-4);background:var(--paper-2)}
+    .btn-white{background:#fff;color:var(--accent)}
+    .btn-white:hover{background:var(--paper-2)}
+
+    /* HERO */
+    .hero{padding:calc(var(--nav-h) + 5rem) 2rem 5rem;min-height:92vh;display:flex;align-items:center}
+    .hero-inner{max-width:var(--max);margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem}
+    .hero-eyebrow::before{content:'';display:block;width:24px;height:2px;background:var(--accent)}
+    h1.hero-title{font-size:clamp(2.5rem,5vw,3.8rem);font-weight:800;letter-spacing:-.04em;line-height:1.08;color:var(--ink);margin-bottom:1.5rem}
+    h1.hero-title em{font-style:normal;color:var(--accent)}
+    .hero-desc{font-size:1.05rem;color:var(--ink-2);line-height:1.75;font-weight:300;max-width:520px;margin-bottom:1.5rem}
+    .hero-quote{border-left:3px solid var(--accent);padding-left:1rem;margin-bottom:2.5rem;font-style:italic;color:var(--ink-3);font-size:.93rem}
+    .hero-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+    .hero-visual{display:flex;align-items:center;justify-content:center}
+
+    /* HERO CARD */
+    .hcard-stack{position:relative;width:100%;max-width:400px}
+    .hcard{background:#fff;border:1px solid var(--paper-3);border-radius:var(--r-lg);padding:1.75rem}
+    .hcard-main{position:relative;z-index:2;box-shadow:0 16px 48px rgba(15,15,14,.09)}
+    .hcard-back{position:absolute;top:-14px;left:14px;right:14px;background:var(--paper-2);z-index:1;border-radius:var(--r-lg);height:60px}
+    .hcard-label{font-size:.72rem;color:var(--ink-3);font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem}
+    .hcard-title{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:1.25rem}
+    .hcard-bar-row{display:flex;justify-content:space-between;margin-bottom:.35rem}
+    .hcard-bar-label{font-size:.8rem;color:var(--ink-2)}
+    .hcard-bar-val{font-size:.8rem;font-weight:500}
+    .hcard-bar-track{height:6px;background:var(--paper-2);border-radius:100px;overflow:hidden;margin-bottom:.85rem}
+    .hcard-bar-fill{height:100%;border-radius:100px;background:var(--accent)}
+    .hcard-bar-fill.gold{background:var(--accent-2)}
+    .hcard-footer{display:flex;gap:1rem;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--paper-3)}
+    .hcard-stat{flex:1;text-align:center}
+    .hcard-stat-val{font-family:var(--serif);font-size:1.4rem;font-weight:800;color:var(--accent);display:block}
+    .hcard-stat-label{font-size:.72rem;color:var(--ink-3)}
+
+    /* HOME SERVICES */
+    .services-section{padding:5rem 2rem;background:var(--paper-2)}
+    .services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem}
+    .service-card{background:#fff;border:1px solid var(--paper-3);border-radius:var(--r-lg);padding:2.25rem;display:flex;gap:1.5rem;align-items:flex-start}
+    .service-icon{flex-shrink:0;width:48px;height:48px;background:var(--accent-light);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+    .service-card h3{font-size:1.05rem;font-weight:700;margin-bottom:.5rem}
+    .service-card p{font-size:.9rem;color:var(--ink-2);font-weight:300;line-height:1.65}
+
+    /* WHO */
+    .who-section{padding:5rem 2rem}
+    .who-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+    .who-text p{font-size:1rem;color:var(--ink-2);font-weight:300;line-height:1.85;margin-bottom:1.1rem}
+    .client-types{display:flex;flex-direction:column;gap:.75rem}
+    .client-type{display:flex;align-items:flex-start;gap:.75rem;background:#fff;border:1px solid var(--paper-3);border-radius:var(--r-md);padding:1rem 1.25rem}
+    .client-type-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:.55rem}
+    .client-type p{font-size:.9rem;color:var(--ink-2);font-weight:300;margin:0;line-height:1.5}
+    .client-type strong{color:var(--ink);font-weight:500}
+
+    /* CTA */
+    .cta-section{padding:5rem 2rem}
+    .cta-inner{max-width:var(--max);margin:0 auto;background:var(--ink);border-radius:var(--r-lg);padding:5rem 4rem;text-align:center}
+    .cta-inner h2{font-size:clamp(1.75rem,3.5vw,2.75rem);font-weight:800;color:#fff;letter-spacing:-.04em;margin-bottom:1rem}
+    .cta-inner p{color:rgba(255,255,255,.6);font-weight:300;max-width:480px;margin:0 auto 2.5rem}
+    .btn-cta-ghost{border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.75)}
+    .btn-cta-ghost:hover{background:rgba(255,255,255,.08);color:#fff}
+
+    /* FEATURES */
+    .page-hero{padding:calc(var(--nav-h) + 4rem) 2rem 3rem;text-align:center}
+    h2.page-title{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.04em;margin-bottom:1rem}
+    .page-subtitle{font-size:1.05rem;color:var(--ink-2);font-weight:300;max-width:560px;margin:0 auto}
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--paper-3);border:1.5px solid var(--paper-3);border-radius:var(--r-lg);overflow:hidden}
+    .feat-card{background:var(--paper);padding:2.25rem 2rem;transition:background var(--t)}
+    .feat-card:hover{background:#fff}
+    .feat-icon{width:44px;height:44px;border-radius:var(--r-sm);background:var(--accent-light);display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem;font-size:1.25rem}
+    .feat-card h3{font-size:1rem;font-weight:700;margin-bottom:.5rem}
+    .feat-card p{font-size:.87rem;color:var(--ink-2);line-height:1.65;font-weight:300}
+
+    /* PROCESS */
+    .process-section{padding:5rem 2rem;background:var(--paper-2)}
+    .process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5px;margin-top:3rem;background:var(--paper-3);border:1.5px solid var(--paper-3);border-radius:var(--r-lg);overflow:hidden}
+    .process-step{background:#fff;padding:2rem 1.5rem}
+    .process-num{font-family:var(--serif);font-size:2rem;font-weight:800;color:var(--accent-light);line-height:1;margin-bottom:.75rem}
+    .process-step h3{font-size:.95rem;font-weight:700;margin-bottom:.5rem}
+    .process-step p{font-size:.83rem;color:var(--ink-2);font-weight:300;line-height:1.6}
+    .banner-section{padding:2rem 2rem 5rem}
+    .features-banner{background:var(--accent);border-radius:var(--r-lg);padding:3.5rem 3rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center}
+    .features-banner h3{font-size:1.65rem;font-weight:800;color:#fff;letter-spacing:-.03em;margin-bottom:.4rem}
+    .features-banner p{color:rgba(255,255,255,.72);font-weight:300}
+
+    /* ABOUT */
+    .about-wrap{padding:calc(var(--nav-h) + 4rem) 2rem 2rem}
+    .about-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+    .about-text p{font-size:1rem;color:var(--ink-2);line-height:1.85;font-weight:300;margin-bottom:1.1rem}
+    .about-quote{font-family:var(--serif);font-size:1.2rem;font-weight:700;color:var(--ink);border-left:3px solid var(--accent);padding-left:1.25rem;margin:1.75rem 0;line-height:1.5}
+    .mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .mv-card{border-radius:var(--r-md);padding:1.75rem}
+    .mv-card.mission{background:var(--accent)}.mv-card.vision{background:var(--ink)}
+    .mv-card h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:.75rem;opacity:.6;color:#fff}
+    .mv-card p{font-size:.88rem;color:rgba(255,255,255,.88);font-weight:300;line-height:1.65}
+    .values-section{padding:5rem 2rem;background:var(--paper-2)}
+    .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3rem}
+    .value-card{background:#fff;border:1px solid var(--paper-3);border-radius:var(--r-md);padding:1.75rem}
+    .value-icon{font-size:1.5rem;margin-bottom:.75rem;display:block}
+    .value-card h4{font-size:.93rem;font-weight:700;margin-bottom:.4rem}
+    .value-card p{font-size:.84rem;color:var(--ink-2);font-weight:300;line-height:1.6}
+    .roadmap-section{padding:5rem 2rem}
+    .roadmap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+    .roadmap-card{background:#fff;border:1px solid var(--paper-3);border-radius:var(--r-lg);padding:2rem}
+    .roadmap-phase{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:.5rem}
+    .roadmap-card h3{font-size:1.05rem;font-weight:700;margin-bottom:.75rem}
+    .roadmap-card p{font-size:.87rem;color:var(--ink-2);font-weight:300;line-height:1.65}
+
+    /* PRICING */
+    .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+    .plan-card{background:#fff;border:1px solid var(--paper-3);border-radius:var(--r-lg);padding:2.5rem 2rem;position:relative;display:flex;flex-direction:column}
+    .plan-card.featured{border-color:var(--accent);border-width:2px}
+    .plan-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:.7rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:.3rem 1rem;border-radius:100px;white-space:nowrap}
+    .plan-name{font-family:var(--serif);font-size:1.2rem;font-weight:800;margin-bottom:.4rem}
+    .plan-desc{font-size:.85rem;color:var(--ink-2);font-weight:300;margin-bottom:1.75rem;line-height:1.5}
+    .plan-price{margin-bottom:1.75rem;padding-bottom:1.75rem;border-bottom:1px solid var(--paper-3)}
+    .plan-range{font-family:var(--serif);font-size:1.75rem;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1}
+    .plan-period{font-size:.82rem;color:var(--ink-3);font-weight:300;margin-top:.25rem}
+    .plan-features{list-style:none;flex:1;margin-bottom:2rem}
+    .plan-features li{display:flex;align-items:flex-start;gap:.6rem;font-size:.87rem;color:var(--ink-2);font-weight:300;padding:.5rem 0;border-bottom:1px solid var(--paper-3)}
+    .plan-features li:last-child{border-bottom:none}
+    .plan-features li::before{content:'✓';flex-shrink:0;color:var(--accent);font-weight:700;font-size:.85rem}
+    .btn-plan{display:block;text-align:center;width:100%;padding:.8rem 1.5rem;border-radius:var(--r-sm);font-family:var(--body);font-size:.95rem;font-weight:500;cursor:pointer;text-decoration:none;border:1.5px solid;transition:var(--t)}
+    .btn-plan-outline{border-color:var(--paper-3);color:var(--ink)}
+    .btn-plan-outline:hover{border-color:var(--ink-4);background:var(--paper-2)}
+    .btn-plan-solid{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .btn-plan-solid:hover{background:var(--accent-mid)}
+    .support-section{padding:3rem 2rem 5rem}
+    .support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+    .support-card{background:#fff;border:1px solid var(--paper-3);border-radius:var(--r-lg);padding:2rem}
+    .support-price{font-family:var(--serif);font-size:1.5rem;font-weight:800;color:var(--accent);margin-bottom:.25rem}
+    .support-name{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:1rem}
+    .support-card p{font-size:.86rem;color:var(--ink-2);font-weight:300;line-height:1.65}
+    .faq-section{padding:4rem 2rem;background:var(--paper-2)}
+    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2.5rem}
+    .faq-item{background:#fff;border:1px solid var(--paper-3);border-radius:var(--r-md);padding:1.5rem}
+    .faq-item h4{font-size:.93rem;font-weight:700;margin-bottom:.4rem}
+    .faq-item p{font-size:.85rem;color:var(--ink-2);font-weight:300;line-height:1.65}
+
+    /* CONTACT */
+    .contact-wrap{padding:calc(var(--nav-h) + 4rem) 2rem 4rem}
+    .contact-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:5fr 7fr;gap:5rem;align-items:start}
+    .contact-info h2{font-size:2.25rem;font-weight:800;letter-spacing:-.04em;margin-bottom:.75rem}
+    .contact-info>p{color:var(--ink-2);font-weight:300;line-height:1.75;margin-bottom:2rem}
+    .contact-details{list-style:none;display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
+    .contact-details li{display:flex;align-items:flex-start;gap:.75rem;font-size:.9rem;color:var(--ink-2)}
+    .contact-details li strong{display:block;color:var(--ink);font-weight:500;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.1rem}
+    .contact-ico{width:36px;height:36px;border-radius:var(--r-sm);background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;margin-top:2px}
+    .contact-promise{background:var(--accent-light);border-radius:var(--r-md);padding:1.25rem 1.5rem}
+    .contact-promise p{font-size:.87rem;color:var(--accent-mid);font-weight:400;line-height:1.65}
+    .contact-promise strong{font-weight:600}
+    .form-card{background:#fff;border:1px solid var(--paper-3);border-radius:var(--r-lg);padding:2.5rem}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .form-group{margin-bottom:1.25rem}
+    .form-group label{display:block;font-size:.78rem;font-weight:500;color:var(--ink-2);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
+    .form-group input,.form-group textarea,.form-group select{width:100%;padding:.7rem 1rem;border:1px solid var(--paper-3);border-radius:var(--r-sm);font-family:var(--body);font-size:.9rem;color:var(--ink);background:var(--paper);transition:border-color var(--t);outline:none}
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent)}
+    .form-group textarea{resize:vertical;min-height:120px}
+    .success-msg{display:none;text-align:center;padding:1.5rem;background:var(--accent-light);border-radius:var(--r-md);color:var(--accent);font-weight:500;margin-top:1rem}
+
+    /* FOOTER */
+    footer{background:var(--ink);color:rgba(255,255,255,.5);padding:3.5rem 2rem 2rem}
+    .footer-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem}
+    .footer-logo{font-family:var(--serif);font-weight:800;font-size:1.2rem;color:#fff;margin-bottom:.75rem}
+    .footer-logo span{color:#9FE1CB}
+    .footer-tagline{font-size:.84rem;line-height:1.65;margin-bottom:1.1rem}
+    .footer-contact-item{font-size:.82rem;margin-bottom:.3rem}
+    .footer-contact-item a{color:rgba(255,255,255,.55);text-decoration:none}
+    .footer-contact-item a:hover{color:#fff}
+    footer h4{font-family:var(--serif);font-size:.8rem;font-weight:700;color:#fff;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.06em}
+    footer ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+    footer ul li a{font-size:.84rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color var(--t)}
+    footer ul li a:hover{color:#fff}
+    .footer-bottom{max-width:var(--max);margin:2rem auto 0;border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center}
+    .footer-bottom p{font-size:.78rem}
+
+    /* RESPONSIVE */
+    @media(max-width:960px){
+      .hero-inner,.about-inner,.contact-inner,.who-inner{grid-template-columns:1fr}
+      .hero-visual{display:none}
+      .features-grid{grid-template-columns:1fr 1fr}
+      .plans-grid,.support-grid,.roadmap-grid{grid-template-columns:1fr;max-width:500px}
+      .faq-grid{grid-template-columns:1fr}
+      .values-grid{grid-template-columns:1fr 1fr}
+      .footer-inner{grid-template-columns:1fr 1fr;gap:2rem}
+      .features-banner{grid-template-columns:1fr}
+      .services-grid{grid-template-columns:1fr}
+      .process-grid{grid-template-columns:1fr 1fr}
+      .mv-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){
+      .nav-links{display:none}.hamburger{display:flex}
+      .nav-links.open{display:flex;flex-direction:column;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--paper);border-bottom:1px solid var(--paper-3);padding:1rem}
+      .features-grid,.values-grid,.process-grid{grid-template-columns:1fr}
+      .footer-inner{grid-template-columns:1fr}
+      .form-row{grid-template-columns:1fr}
+      .cta-inner{padding:3rem 1.75rem}
+      .hero{padding-top:calc(var(--nav-h) + 3rem)}
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+<a class="logo" href="#" onclick="showPage('home');return false;"><img src="images/AfriNex.png" alt="AfriNex" style="height:95px;width:auto;display:inline-block;vertical-align:middle;margin-right:16px;"/><span>AfriNex</span> Group</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" onclick="showPage('home');return false;" id="nav-home" class="active">Home</a></li>
+      <li><a href="#" onclick="showPage('features');return false;" id="nav-features">Features</a></li>
+      <li><a href="#" onclick="showPage('about');return false;" id="nav-about">About</a></li>
+      <li><a href="#" onclick="showPage('pricing');return false;" id="nav-pricing">Pricing</a></li>
+      <li><a href="#" onclick="showPage('contact');return false;" id="nav-contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HOME -->
+ <!-- WhatsApp Float -->
+<a href="https://wa.me/263714975700?text=Hello%20AfriNex%20Group%2C%0A%0AI%20came%20across%20your%20website%20and%20would%20like%20to%20discuss%20how%20your%20digital%20solutions%20can%20help%20my%20business%20grow.%0A%0APlease%20get%20in%20touch%20with%20me.%0A%0AThank%20you." target="_blank" class="whatsapp-float">
+    💬 WhatsApp: +263 714 975 700
+</a>
+<div class="page active" id="page-home">
+  <section class="hero has-bg" style="--bg:url('images/hero banner.jpg')">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow">Built in Africa, for Africa</p>
+        <h1 class="hero-title">Building Digital Solutions for <em>Growing Businesses</em></h1>
+        <p class="hero-desc">AfriNex Group combines software engineering, thoughtful design, and business strategy to build digital systems that do real work — not prototypes, not templates. Systems engineered around how your business actually operates.</p>
+        <p class="hero-quote">"Africa is not waiting. Neither should your business."</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary" onclick="showPage('contact');return false;">Start a Conversation →</a>
+          <a href="#" class="btn btn-outline" onclick="showPage('features');return false;">What We Build</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hcard-stack">
+          <div class="hcard-back"></div>
+          <div class="hcard hcard-main">
+            <div class="hcard-label">AfriNex Client Dashboard</div>
+            <div class="hcard-title">Business Growth Overview</div>
+            <div class="hcard-bar-row"><span class="hcard-bar-label">Web Platform Traffic</span><span class="hcard-bar-val">+78%</span></div>
+            <div class="hcard-bar-track"><div class="hcard-bar-fill" style="width:78%"></div></div>
+            <div class="hcard-bar-row"><span class="hcard-bar-label">Operations Automated</span><span class="hcard-bar-val">+91%</span></div>
+            <div class="hcard-bar-track"><div class="hcard-bar-fill" style="width:91%"></div></div>
+            <div class="hcard-bar-row"><span class="hcard-bar-label">Revenue Growth</span><span class="hcard-bar-val">+63%</span></div>
+            <div class="hcard-bar-track"><div class="hcard-bar-fill gold" style="width:63%"></div></div>
+            <div class="hcard-footer">
+              <div class="hcard-stat"><span class="hcard-stat-val">4.9★</span><span class="hcard-stat-label">Client Rating</span></div>
+              <div class="hcard-stat"><span class="hcard-stat-val">24h</span><span class="hcard-stat-label">Support</span></div>
+              <div class="hcard-stat"><span class="hcard-stat-val">100%</span><span class="hcard-stat-label">Delivered</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="who-section">
+    <div class="container">
+      <div class="who-inner">
+        <div class="who-text">
+          <span class="section-tag">Who We Work With</span>
+          <h2 style="font-family:var(--serif);font-size:clamp(1.75rem,3vw,2.25rem);font-weight:800;letter-spacing:-.04em;margin-bottom:1.5rem;">Built for businesses with real ambition</h2>
+          <p>We work best with clients who are ready to invest in digital infrastructure that delivers real returns. We understand the realities of operating in this environment: the importance of mobile-first experiences, the need for systems that work reliably on varied infrastructure, and the value of a technology partner who is genuinely reachable.</p>
+          <p>Not sure if we're the right fit? Reach out anyway — that conversation is always free, and we'll tell you honestly.</p>
+          <a href="#" class="btn btn-primary" onclick="showPage('contact');return false;" style="margin-top:.5rem">Let's Talk →</a>
+        </div>
+        <div>
+          <div class="client-types">
+            <div class="client-type"><div class="client-type-dot"></div><p><strong>Small and medium enterprises</strong> that need to modernise without breaking the bank</p></div>
+            <div class="client-type"><div class="client-type-dot"></div><p><strong>Startups</strong> that want to launch with a credible, professional digital presence from day one</p></div>
+            <div class="client-type"><div class="client-type-dot"></div><p><strong>Service-based businesses</strong> (hospitality, healthcare, logistics, retail) needing booking or management systems</p></div>
+            <div class="client-type"><div class="client-type-dot"></div><p><strong>Established businesses</strong> that have outgrown their current systems and need something built to scale</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>Ready to build something together?</h2>
+      <p>No pressure, no hard sell. Just an honest conversation about what you're trying to build and how AfriNex can help.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="#" class="btn btn-white" onclick="showPage('contact');return false;">Get in Touch →</a>
+        <a href="#" class="btn btn-cta-ghost" onclick="showPage('pricing');return false;">View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+     <footer>
+    <div class="footer-inner">   
+      <div><div class="footer-logo"><span>AfriNex</span> Group</div><p class="footer-tagline">Building digital solutions for growing businesses across Africa.</p><p class="footer-contact-item"><a href="mailto:info.afrinexgroup@gmail.com">info.afrinexgroup@gmail.com</a></p></div>
+      <div><h4>Company</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('features');return false;">Features</a></li><li><a href="#" onclick="showPage('pricing');return false;">Pricing</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="#">Web Platforms</a></li><li><a href="#">Business Systems</a></li><li><a href="#">Automation</a></li><li><a href="#">Branding</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="#">Bulawayo, Zimbabwe</a></li><li><a href="mailto:info.afrinexgroup@gmail.com">Email Us</a></li><li><a href="https://wa.me/263714975700">WhatsApp</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 AfriNex Group. All rights reserved.</p><p>Built in Zimbabwe 🇿🇼</p></div>
+  </footer>
+</div>
+
+<!-- FEATURES -->
+<div class="page" id="page-features">
+  <div class="page-hero has-bg" style="--bg:url('images/1.jpg')">
+    <div class="container">
+      <span class="section-tag">What We Do</span>
+      <h2 class="page-title">Capabilities built for real business outcomes</h2>
+      <p class="page-subtitle">We build the digital infrastructure modern businesses run on—precision, purpose, and systems engineered to keep working as you grow.</p>
+    </div>
+  </div>
+
+  <section aria-label="Core capabilities" style="padding:1rem 2rem 0;">
+    <div class="container">
+      <div class="features-grid" role="list">
+        <div class="feat-card" role="listitem">
+          <div class="feat-icon">🌐</div>
+          <h3>Web Platforms</h3>
+          <p>Responsive, fast-loading websites engineered to convert visitors into customers—service landings, e‑commerce, and corporate presence.</p>
+        </div>
+        <div class="feat-card" role="listitem">
+          <div class="feat-icon">⚙️</div>
+          <h3>Business Systems</h3>
+          <p>Custom tools: booking systems, inventory trackers, client portals, and operational dashboards tailored to your workflows.</p>
+        </div>
+        <div class="feat-card" role="listitem">
+          <div class="feat-icon">🤖</div>
+          <h3>Automation & Integration</h3>
+          <p>Connect your tools, automate repetitive workflows, and integrate via APIs—free your team to focus on growth.</p>
+        </div>
+        <div class="feat-card" role="listitem">
+          <div class="feat-icon">🎨</div>
+          <h3>Digital Branding</h3>
+          <p>Visual identities, brand guidelines, and design systems—credibility and consistency everywhere you show up.</p>
+        </div>
+        <div class="feat-card" role="listitem">
+          <div class="feat-icon">⏳</div>
+          <h3>Less wasted time</h3>
+          <p>Automate repetitive tasks so your team can focus on what matters most.</p>
+        </div>
+        <div class="feat-card" role="listitem">
+          <div class="feat-icon">💰</div>
+          <h3>More paying customers</h3>
+          <p>Platforms that attract, engage, and convert—built for real users and real markets.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process-section" style="padding-top:3.5rem;">
+    <div class="container">
+      <div class="process-grid" aria-label="How we work">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <h3>Discovery</h3>
+          <p>Listen and understand your business before writing a single line.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <h3>Design</h3>
+          <p>Wireframes, architecture, user flows—feedback first.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <h3>Development</h3>
+          <p>Clean code, tested functionality, performance & security.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <h3>Deployment</h3>
+          <p>Careful launch with rigorous quality checks.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">05</div>
+          <h3>Support</h3>
+          <p>We stay—updates, security, and improvements as you evolve.</p>
+        </div>
+      </div>
+
+      <div class="banner-section" style="padding:2.5rem 0 0;">
+        <div class="features-banner">
+          <div>
+            <h3 id="season-banner-title">Not sure where to start?</h3>
+            <p id="season-banner-text">We’ll assess your business and recommend the right solution. That first conversation is always free.</p>
+          </div>
+          <a href="#" class="btn btn-white" onclick="showPage('contact');return false;">Book Free Discovery Call →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <div class="page-hero has-bg" style="--bg:url('images/3.jpg')">
+    <div class="container">
+      <span class="section-tag">About</span>
+      <h2 class="page-title">A technology company built in Africa, for Africa</h2>
+      <p class="page-subtitle">We design and build digital systems that keep working as your business grows—without templates, without guesswork.</p>
+    </div>
+  </div>
+
+  <div class="about-wrap">
+    <div class="about-inner">
+      <div class="about-text">
+        <span class="section-tag">Who We Are</span>
+        <h2 style="font-family:var(--serif);font-size:clamp(1.9rem,3.5vw,2.75rem);font-weight:800;letter-spacing:-.04em;margin-bottom:1.5rem;">A technology company built in Africa, for Africa</h2>
+        <p>Every business we've spoken to has a version of the same story: a great product or service, a team that works hard, and a digital presence that simply isn't keeping up. Websites that don't convert. Systems that create more work instead of less. A brand that doesn't yet say what the business truly is.</p>
+        <p>We started AfriNex Group because we believed African businesses deserve better than that. Not watered-down solutions imported from elsewhere, but technology built intentionally — for the realities, the ambitions, and the pace of growth happening right here on this continent.</p>
+        <p>We are engineers, designers, and strategists. But more than that, we are partners. When you work with AfriNex, you're not just buying a website or a system. You're getting a team that genuinely cares whether your business grows.</p>
+        <p class="about-quote">"Africa is not waiting. Neither should your business."</p>
+        <a href="#" class="btn btn-primary" onclick="showPage('contact');return false;">Work With Us →</a>
+      </div>
+      <div>
+        <h3 style="font-size:.78rem;font-weight:600;margin-bottom:1.5rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);">Mission & Vision</h3>
+        <div class="mv-grid">
+          <div class="mv-card mission"><h4>Mission</h4><p>To design and deploy intelligent digital solutions that empower businesses to operate efficiently, compete effectively, and scale sustainably.</p></div>
+          <div class="mv-card vision"><h4>Vision</h4><p>To become Africa's most trusted multi-sector technology enterprise, growing from digital solutions into artificial intelligence, financial systems, and smart agriculture.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="values-section">
+    <div class="container">
+      <span class="section-tag">What You Get</span>
+      <h2 style="font-family:var(--serif);font-size:clamp(1.75rem,3vw,2.25rem);font-weight:800;letter-spacing:-.04em;">Working with AfriNex is a partnership, not a transaction</h2>
+      <div class="values-grid">
+        <div class="value-card"><span class="value-icon">⏱️</span><h4>Less wasted time</h4><p>We automate the repetitive tasks that eat into your team's day, so your people can focus on work that actually matters.</p></div>
+        <div class="value-card"><span class="value-icon">📈</span><h4>More paying customers</h4><p>We build platforms that attract, engage, and convert and are not just look good on a screen.</p></div>
+        <div class="value-card"><span class="value-icon">🏆</span><h4>A brand that commands respect</h4><p>We craft visual identities that make your business look established, credible, and worth choosing.</p></div>
+        <div class="value-card"><span class="value-icon">🔄</span><h4>A system that grows with you</h4><p>We build for where you're going, not just where you are. No rebuilding from scratch in 18 months.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="roadmap-section">
+    <div class="container">
+      <span class="section-tag">Where We're Going</span>
+      <h2 style="font-family:var(--serif);font-size:clamp(1.75rem,3vw,2.25rem);font-weight:800;letter-spacing:-.04em;margin-bottom:.5rem;">Building an institution, not just a company</h2>
+      <p style="color:var(--ink-2);font-weight:300;max-width:560px;margin-bottom:0">AfriNex is not just building a technology company — we are building something that will have a meaningful impact on how African businesses operate for decades to come.</p>
+      <div class="roadmap-grid">
+        <div class="roadmap-card"><div class="roadmap-phase">Phase 1 · Now</div><h3>Technology Foundation</h3><p>Establish AfriNex Tech as a revenue-generating unit. Build our client base, develop a portfolio that demonstrates capability, and create consistent, repeatable service delivery.</p></div>
+        <div class="roadmap-card"><div class="roadmap-phase">Phase 2 · Next</div><h3>Advanced Digital Products</h3><p>Expand into AI-powered tools and cybersecurity services. Develop proprietary AfriNex products that can serve clients at scale beyond bespoke engagements.</p></div>
+        <div class="roadmap-card"><div class="roadmap-phase">Phase 3 · Future</div><h3>Sector Diversification</h3><p>Leverage our technology platform to enter financial systems and smart agriculture — two of the highest-impact sectors in Africa's next decade of growth.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div><div class="footer-logo"><span>AfriNex</span> Group</div><p class="footer-tagline">Building digital solutions for growing businesses across Africa.</p><p class="footer-contact-item"><a href="mailto:info.afrinexgroup@gmail.com">info.afrinexgroup@gmail.com</a></p></div>
+      <div><h4>Company</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('features');return false;">Features</a></li><li><a href="#" onclick="showPage('pricing');return false;">Pricing</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="#">Web Platforms</a></li><li><a href="#">Business Systems</a></li><li><a href="#">Automation</a></li><li><a href="#">Branding</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="#">Bulawayo, Zimbabwe</a></li><li><a href="mailto:info.afrinexgroup@gmail.com">Email Us</a></li><li><a href="https://wa.me/263714975700">WhatsApp</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 AfriNex Group. All rights reserved.</p><p>Built in Zimbabwe 🇿🇼</p></div>
+  </footer>
+</div>
+
+<!-- PRICING -->
+<div class="page" id="page-pricing">
+  <div class="page-hero has-bg" style="--bg:url('images/2.jpg')">
+    <div class="container">
+      <span class="section-tag">Pricing</span>
+      <h2 class="page-title">Structured to meet you where you are</h2>
+      <p class="page-subtitle">Whether you're just getting online for the first time or building a complex automated system — we have a package for your stage of growth.</p>
+      <div class="plans-grid" style="max-width:var(--max);margin-left:auto;margin-right:auto">
+        <div class="plan-card">
+          <div class="plan-name">Basic</div>
+          <div class="plan-desc">A strong starting point for businesses that need a credible online presence quickly.</div>
+          <div class="plan-price"><div class="plan-range">$120 – $200</div><div class="plan-period">one-time project investment</div></div>
+          <ul class="plan-features">
+            <li>Branded website, mobile-responsive</li>
+            <li>Contact functionality</li>
+            <li>Up to 5 pages</li>
+            <li>Performance-optimised</li>
+            <li>Basic SEO setup</li>
+          </ul>
+          <a href="#" class="btn-plan btn-plan-outline" onclick="showPage('contact');return false;">Get Started</a>
+        </div>
+        <div class="plan-card featured">
+          <div class="plan-badge">Most Popular</div>
+          <div class="plan-name">Standard</div>
+          <div class="plan-desc">A complete digital package built to do real work for your business — not just look good.</div>
+          <div class="plan-price"><div class="plan-range">$250 – $450</div><div class="plan-period">one-time project investment</div></div>
+          <ul class="plan-features">
+            <li>Custom design (no templates)</li>
+            <li>Core functionality and features</li>
+            <li>Third-party integrations</li>
+            <li>Foundational automation</li>
+            <li>Mobile-first architecture</li>
+            <li>Performance and security hardening</li>
+          </ul>
+          <a href="#" class="btn-plan btn-plan-solid" onclick="showPage('contact');return false;">Get Started</a>
+        </div>
+        <div class="plan-card">
+          <div class="plan-name">Premium</div>
+          <div class="plan-desc">A fully engineered solution for businesses ready to operate at the next level.</div>
+          <div class="plan-price"><div class="plan-range">$500 – $1,000+</div><div class="plan-period">one-time project investment</div></div>
+          <ul class="plan-features">
+            <li>Advanced automation</li>
+            <li>Custom-built features</li>
+            <li>Scalability planning</li>
+            <li>Priority support included</li>
+            <li>Full system architecture</li>
+            <li>Dedicated project management</li>
+          </ul>
+          <a href="#" class="btn-plan btn-plan-outline" onclick="showPage('contact');return false;">Talk to Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="support-section">
+    <div class="container">
+      <span class="section-tag">Ongoing Support</span>
+      <h2 style="font-family:var(--serif);font-size:clamp(1.6rem,2.5vw,2rem);font-weight:800;letter-spacing:-.03em;margin-bottom:.4rem;">The relationship doesn't end at launch</h2>
+      <p style="color:var(--ink-2);font-weight:300">Every deployed solution is eligible for a monthly support plan.</p>
+      <div class="support-grid">
+        <div class="support-card"><div class="support-price">$20<span style="font-size:1rem;font-weight:400;color:var(--ink-3)">/mo</span></div><div class="support-name">Basic Support</div><p>Essential monitoring, security updates, and minor fixes to keep your system running smoothly.</p></div>
+        <div class="support-card" style="border-color:var(--accent);border-width:2px"><div class="support-price">$50<span style="font-size:1rem;font-weight:400;color:var(--ink-3)">/mo</span></div><div class="support-name">Standard Support</div><p>All Basic services plus performance optimisation and content updates as your business evolves.</p></div>
+        <div class="support-card"><div class="support-price">$100<span style="font-size:1rem;font-weight:400;color:var(--ink-3)">/mo</span></div><div class="support-name">Premium Support</div><p>Full-service support: priority response, feature additions, and monthly performance reviews.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <span class="section-tag">FAQ</span>
+      <h2 style="font-family:var(--serif);font-size:clamp(1.6rem,2.5vw,2rem);font-weight:800;letter-spacing:-.03em">Common questions</h2>
+      <div class="faq-grid">
+        <div class="faq-item"><h4>Are these fixed prices?</h4><p>The ranges reflect typical project complexity. After a free discovery call, we'll give you a precise quote based on your specific requirements — no surprises.</p></div>
+        <div class="faq-item"><h4>Do you build custom packages?</h4><p>Absolutely. Most clients have specific needs. Contact us and we'll put together a tailored proposal within 48 hours of our discovery conversation.</p></div>
+        <div class="faq-item"><h4>What payment methods do you accept?</h4><p>We're flexible to accommodate your preferred payment method — including local options. We'll discuss this during our initial conversation.</p></div>
+        <div class="faq-item"><h4>How long does a project take?</h4><p>Basic projects typically take 1–2 weeks. Standard and Premium projects range from 3–8 weeks depending on scope. We set clear timelines from the start.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div><div class="footer-logo"><span>AfriNex</span> Group</div><p class="footer-tagline">Building digital solutions for growing businesses across Africa.</p><p class="footer-contact-item"><a href="mailto:info.afrinexgroup@gmail.com">info.afrinexgroup@gmail.com</a></p></div>
+      <div><h4>Company</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('features');return false;">Features</a></li><li><a href="#" onclick="showPage('about');return false;">About</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="#">Web Platforms</a></li><li><a href="#">Business Systems</a></li><li><a href="#">Automation</a></li><li><a href="#">Branding</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="#">Bulawayo, Zimbabwe</a></li><li><a href="mailto:info.afrinexgroup@gmail.com">Email Us</a></li><li><a href="https://wa.me/263714975700">WhatsApp</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 AfriNex Group. All rights reserved.</p><p>Built in Zimbabwe 🇿🇼</p></div>
+  </footer>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <div class="page-hero has-bg" style="--bg:url('images/4.jpg')">
+    <div class="container">
+      <span class="section-tag">Contact</span>
+      <h2 class="page-title">Let’s talk about what you’re building</h2>
+      <p class="page-subtitle">Send us a message and we’ll respond quickly—usually the same business day.</p>
+    </div>
+  </div>
+
+  <div class="contact-wrap">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <span class="section-tag">Get in Touch</span>
+        <h2>Let's talk about what you're building</h2>
+        <p>No pressure, no hard sell. Just an honest discussion about what you're trying to achieve and how AfriNex can help. That first conversation is always free.</p>
+        <ul class="contact-details">
+          <li><div class="contact-ico">📧</div><div><strong>Email</strong>info.afrinexgroup@gmail.com</div></li>
+          <li><div class="contact-ico">💬</div><div><strong>WhatsApp</strong>+263 714 975 700</div></li>
+          <li><div class="contact-ico">📍</div><div><strong>Location</strong>Bulawayo, Zimbabwe, Africa</div></li>
+        </ul>
+        <div class="contact-promise">
+          <p><strong>Our promise:</strong> We respond to every enquiry. If you're not sure whether what we do fits what you need, reach out anyway — we'll tell you honestly if we're the right fit, and point you in the right direction if we're not.</p>
+        </div>
+      </div>
+      <div class="form-card">
+        <h3 style="font-family:var(--serif);font-size:1.2rem;font-weight:700;margin-bottom:.25rem;letter-spacing:-.02em">Send us a message</h3>
+        <p style="font-size:.83rem;color:var(--ink-3);margin-bottom:1.75rem">We'll get back to you quickly — usually same business day.</p>
+        <div class="form-row">
+          <div class="form-group"><label>First name</label><input type="text" placeholder="Your first name" id="f-first" /></div>
+          <div class="form-group"><label>Last name</label><input type="text" placeholder="Your last name" id="f-last" /></div>
+        </div>
+        <div class="form-group"><label>Email address</label><input type="email" placeholder="your@email.com" id="f-email" /></div>
+        <div class="form-group"><label>Business name</label><input type="text" placeholder="Your company or business" id="f-company" /></div>
+        <div class="form-group">
+          <label>I'm interested in</label>
+          <select id="f-service">
+            <option value="">Select a service...</option>
+            <option>Web Platform</option>
+            <option>Business System / Portal</option>
+            <option>Automation and Integration</option>
+            <option>Digital Branding</option>
+            <option>Full Package (not sure yet)</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your business and what you're trying to achieve..." id="f-msg"></textarea></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="submitForm()">Send Message →</button>
+        <div class="success-msg" id="success-msg">✓ Message sent! We'll be in touch soon.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+<a href="https://wa.me/263714975700?text=Hello%20AfriNex%20Group%2C%0A%0AI%20came%20across%20your%20website%20and%20would%20like%20to%20discuss%20how%20your%20digital%20solutions%20can%20help%20my%20business%20grow.%0A%0APlease%20get%20in%20touch%20with%20me.%0A%0AThank%20you.">WhatsApp: +263 714 975 700</a>
+      <div><h4>Company</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('features');return false;">Features</a></li><li><a href="#" onclick="showPage('about');return false;">About</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="#">Web Platforms</a></li><li><a href="#">Business Systems</a></li><li><a href="#">Automation</a></li><li><a href="#">Branding</a></li></ul></div>
+<a href="https://wa.me/263714975700?text=Hello%20AfriNex%20Group%2C%0A%0AI%20came%20across%20your%20website%20and%20would%20like%20to%20discuss%20how%20your%20digital%20solutions%20can%20help%20my%20business%20grow.%0A%0APlease%20get%20in%20touch%20with%20me.%0A%0AThank%20you.">WhatsApp Us</a>
+    </div>
+    <div class="footer-bottom"><p>© 2025 AfriNex Group. Confidential. All rights reserved.</p><p>Built in Zimbabwe 🇿🇼</p></div>
+  </footer>
+</div>
+
+<script>
+  function showPage(id){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+    document.getElementById('page-'+id).classList.add('active');
+    var el=document.getElementById('nav-'+id);
+    if(el)el.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+    document.getElementById('navLinks').classList.remove('open');
+  }
+  function toggleMenu(){document.getElementById('navLinks').classList.toggle('open')}
+  function submitForm(){
+  // (optional) Theme toggle could be added elsewhere; keep this function unchanged.
+
+
+    var req=['f-first','f-last','f-email','f-msg'];
+    if(req.some(function(id){return !document.getElementById(id).value.trim()})){alert('Please fill in all required fields.');return;}
+    var btn=document.querySelector('#page-contact .btn-primary');
+    btn.textContent='Sending…';btn.disabled=true;
+    setTimeout(function(){document.getElementById('success-msg').style.display='block';btn.style.display='none';},1200);
+  }
+
+  // Seasonal / holiday-aware messaging (and theme) for the Features page
+  (function(){
+
+    function getMonth(){
+      return (new Date()).getMonth(); // 0-11
+    }
+
+    function setTheme(theme){
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    function setBanner(title, text){
+      var t=document.getElementById('season-banner-title');
+      var p=document.getElementById('season-banner-text');
+      if(t) t.textContent = title;
+      if(p) p.textContent = text;
+    }
+
+    var m=getMonth();
+
+    // Southern Africa seasons (approx.):
+    // Summer: Dec-Feb, Autumn: Mar-May, Winter: Jun-Aug, Spring: Sep-Nov
+    // Major holidays we account for commonly in the region:
+    // - New Year: Jan 1
+    // - Easter: varies (approx handling: if you want exact dates, we'd need a date list)
+    // - Independence/Christmas: Dec
+    // For a lightweight approach without external libraries, we key off months.
+
+    if(m===11){
+      // Dec
+      setBanner('Ready before the festive rush?',
+        'Lock in your website, booking system, and automation before December demand spikes. We’ll assess your business and recommend the right solution.');
+    } else if(m===0){
+      // Jan
+      setBanner('Kick off the year with a stronger system',
+        'Start 2026 with a platform that converts, automates, and keeps working long after New Year celebrations.');
+    } else if(m===1 || m===2){
+      // Feb-Mar
+      setBanner('Spring into growth (and upgrade your digital stack)',
+        'Turn traffic into customers with mobile-first design, integrations, and business systems built for how you actually operate.');
+    } else if(m===3 || m===4){
+      // Apr-May
+      setBanner('Autumn planning: build, optimise, and streamline',
+        'Let’s strengthen your operations with automation and dashboards—so your team spends less time on manual work.');
+    } else if(m===5 || m===6){
+      // Jun-Jul
+      setBanner('Winter reliability: improve performance and security',
+        'During slower periods, we upgrade sites and systems for speed, reliability, and protection—so you’re ready when demand returns.');
+    } else if(m===7){
+      // Aug
+      setBanner('August momentum: prepare for the next cycle',
+        'We’ll review your current setup and recommend practical improvements that increase conversions and reduce operational friction.');
+    } else {
+      // Sep-Nov (Spring)
+      setBanner('Spring-ready: launch campaigns with confidence',
+        'Design and build the digital features you need—fast pages, clear messaging, and systems that convert.');
+    }
+  })();
+</script>
+</body>
+</html>
